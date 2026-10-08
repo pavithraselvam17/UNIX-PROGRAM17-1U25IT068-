@@ -7,9 +7,14 @@ fi
 
 username="$1"
 
-chage -d 2025-01-01 "$username"
-chage -E 2026-12-31 "$username"
-chage -m 7 "$username"
-chage -M 90 "$username"
+# Create user if it does not exist
+if ! id "$username" >/dev/null 2>&1; then
+    sudo useradd "$username"
+fi
 
-chage -l "$username"
+sudo chage -d 2025-01-01 "$username"
+sudo chage -E 2026-12-31 "$username"
+sudo chage -m 7 "$username"
+sudo chage -M 90 "$username"
+
+sudo chage -l "$username"
